@@ -1,14 +1,8 @@
 package ru.yandex.praktikum.project.models;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
-import java.util.Random;
 
 public class OrderPageScooter extends CommonPage{
 
@@ -18,23 +12,23 @@ public class OrderPageScooter extends CommonPage{
     }
 
     //локаторы для полей на странице 1 создания заказа
-    private By customerFirstName = By.cssSelector("input[placeholder='* Имя']");
-    private By customerLastName = By.cssSelector("input[placeholder='* Фамилия']");
-    private By customerAddress = By.cssSelector("input[placeholder='* Адрес: куда привезти заказ']");
-    private By metroStation = By.cssSelector("input[placeholder='* Станция метро']");
-    private By customerPhone = By.cssSelector("input[placeholder='* Телефон: на него позвонит курьер']");
+    private By customerFirstName = By.xpath(".//div[@class='Order_Form__17u6u']/div[@class='Input_InputContainer__3NykH'][1]/input");
+    private By customerLastName = By.xpath(".//div[@class='Order_Form__17u6u']/div[@class='Input_InputContainer__3NykH'][2]/input");
+    private By customerAddress = By.xpath(".//div[@class='Order_Form__17u6u']/div[@class='Input_InputContainer__3NykH'][3]/input");
+    private By metroStation = By.xpath(".//div[@class='select-search__value']/input[@class='select-search__input']");
+    private By customerPhone = By.xpath(".//div[@class='Order_Form__17u6u']/div[@class='Input_InputContainer__3NykH'][4]/input");
     //локатор для кнопки "Далее"
-    private By nextButton = By.xpath(".//div[@class='Order_NextButton__1_rCA']/button[text()='Далее']");
-    //локатор для кнопки "Да" в конфирмейшене
-    private By yesButton = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Да']");
+    private By nextButton = By.xpath(".//div/button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
 
     //локаторы для полей на странице 2 создания заказа
-    private By date = By.cssSelector("input[placeholder='* Когда привезти самокат']");
-    private By rentalPeriod = By.xpath(".//div[text()='* Срок аренды']");
-    private By comment = By.cssSelector("input[placeholder='Комментарий для курьера']");
+    private By date = By.cssSelector(".react-datepicker__input-container .Input_Input__1iN_Z");
+    //private By rentalPeriod = By.xpath(".//div[text()='* Срок аренды']");
+    private By rentalPeriod = By.cssSelector(".Dropdown-control .Dropdown-placeholder");
+    private By comment = By.xpath(".//div[@class='Order_Form__17u6u']/div[@class='Input_InputContainer__3NykH']/input");
     //локатор для кнопки "Заказать"
-    private By finishOrderButton = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']");
-
+    private By finishOrderButton = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[2]");
+    //локатор для кнопки "Да" в конфирмейшене
+    private By yesButton = By.xpath(".//div[@class='Order_Modal__YZ-d3']/div[@class='Order_Buttons__1xGrp']/button[2]");
 
     //методы
     public void clickOnNextButton(){

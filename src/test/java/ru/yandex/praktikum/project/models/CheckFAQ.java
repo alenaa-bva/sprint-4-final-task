@@ -1,28 +1,33 @@
 package ru.yandex.praktikum.project.models;
 
-import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.*;
 
 public class CheckFAQ {
         WebDriver driver;
+        DriverType driverType = DriverType.FIREFOX; //выбрали константу
+
 
     @Before
     public void before(){
-        System.setProperty("webdriver.chrome.driver", "C:\\WebDriver\\bin\\chromedriver_win32\\chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.get("https://qa-scooter.praktikum-services.ru");
+        if(driverType == DriverType.FIREFOX){
+            System.setProperty("webdriver.gecko.driver", "src\\main\\properties\\WebDriver\\bin\\geckodriver.exe");
+            driver = new FirefoxDriver();
+            driver.get("https://qa-scooter.praktikum-services.ru");
+        }
+        else {
+            System.setProperty("webdriver.chrome.driver", "src\\main\\properties\\WebDriver\\bin\\chromedriver.exe");
+            driver = new ChromeDriver();
+            driver.get("https://qa-scooter.praktikum-services.ru");
+        }
+
     }
         @Test
         public void checkFAQ() {
@@ -32,7 +37,7 @@ public class CheckFAQ {
             homePageScooter.clickOnQuestionButton();
             String expected = "Сутки — 400 рублей. Оплата курьеру — наличными или картой.";
             WebElement actual = driver.findElement(homePageScooter.getFirstAnswer());
-            assertThat("Текст ответа не совпадает со строкой: Сутки — 400 рублей. Оплата курьеру — наличными или картой.", expected, is(actual.getText()));
+            assertEquals("Текст ответа не совпадает со строкой: Сутки — 400 рублей. Оплата курьеру — наличными или картой.", expected, actual.getText());
         }
 
         @After

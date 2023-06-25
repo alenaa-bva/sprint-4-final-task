@@ -1,12 +1,7 @@
 package ru.yandex.praktikum.project.models;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
@@ -15,10 +10,9 @@ public class HomePageScooter extends CommonPage{
     //Локатор кнопки "Заказать" вверху страницы
     private By headerOrderButton = By.className("Button_Button__ra12g");
     //Локатор кнопки "Заказать" в середине страницы
-    private By middleOrderButton = By.xpath(".//div[@class='Home_FinishButton__1_cWm']/button[text()='Заказать']");
+    private By middleOrderButton = (By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']"));
     //Локатор 1-го элемента списка вопросов
-    private By firstQuestion = By.xpath(".//div[@class='accordion__item']/div/div[text()='Сколько это стоит? И как оплатить?']");
-    //Локатор 1-го элемента списка ответов
+    private By firstQuestion = By.xpath(".//div[@class='accordion__item'][1]/div/div");    //Локатор 1-го элемента списка ответов
     private By firstAnswer = By.xpath(".//div[@role='region']/p[1]");
 
     //конструктор класса
