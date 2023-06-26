@@ -10,7 +10,7 @@ public class HomePageScooter extends CommonPage{
     //Локатор кнопки "Заказать" вверху страницы
     private By headerOrderButton = By.className("Button_Button__ra12g");
     //Локатор кнопки "Заказать" в середине страницы
-    private By middleOrderButton = (By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']"));
+    private By middleOrderButton = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
     //Локатор 1-го элемента списка вопросов
     private By firstQuestion = By.xpath(".//div[@class='accordion__item'][1]/div/div");    //Локатор 1-го элемента списка ответов
     private By firstAnswer = By.xpath(".//div[@role='region']/p[1]");

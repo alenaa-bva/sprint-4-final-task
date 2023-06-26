@@ -22,7 +22,6 @@ public class OrderPageScooter extends CommonPage{
 
     //локаторы для полей на странице 2 создания заказа
     private By date = By.cssSelector(".react-datepicker__input-container .Input_Input__1iN_Z");
-    //private By rentalPeriod = By.xpath(".//div[text()='* Срок аренды']");
     private By rentalPeriod = By.cssSelector(".Dropdown-control .Dropdown-placeholder");
     private By comment = By.xpath(".//div[@class='Order_Form__17u6u']/div[@class='Input_InputContainer__3NykH']/input");
     //локатор для кнопки "Заказать"
