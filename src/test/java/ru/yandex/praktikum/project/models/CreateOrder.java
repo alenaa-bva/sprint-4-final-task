@@ -19,19 +19,27 @@ public class CreateOrder {
     DriverType driverType = DriverType.FIREFOX; //выбрали константу
     private final String checkName;
     private final String checkLastName;
+    private final String checkAddress;
+    private final String checkPhone;
+    private final String checkComment;
 
-    public CreateOrder(String checkName, String lastName) {
+    public CreateOrder(String checkName, String checkLastName, String checkAddress, String checkPhone, String checkComment) {
         this.checkName = checkName;
-        this.checkLastName = lastName;
+        this.checkLastName = checkLastName;
+        this.checkAddress = checkAddress;
+        this.checkPhone = checkPhone;
+        this.checkComment = checkComment;
     }
 
     @Parameterized.Parameters
     public static Object[][] getTextData() {
         return new Object[][] {
-                {"Алена", "Ибрагимова"},
-                {"а", "а"},
-                {" ", "g"},
-                {"тесттесттесттесттесттесттесттесттесттесттесттесттесттесттесттест", "https://qa-scooter.praktikum-services.ru"},
+                {"Алена", "Ибрагимова", "Москва", "+7911111111", "Как можно быстрее"}, //валидные данные
+                {"ав", "ав", "Лесная 35", "80000000000", ""}, //валидные данные
+                {"ав", "ав", "Лесная 35", "+79111111111", "comment"}, //валидные данные
+                {"АЛЕНА", "ИБРАГИМОВА", "Лесная 35", "1111111111", ""}, //невалидные данные checkPhone
+                {"алена ибрагимова", "алена ибрагимова", "Lesnaya", "", ""},//невалидные данные checkName checkLastName checkAddress checkPhone
+                {"тесттесттесттесттесттесттесттесттесттесттесттесттесттесттесттест", "https://qa-scooter.praktikum-services.ru", "12345", "текст", ""},//невалидные данные checkName checkLastName checkAddress checkPhone
         };
 
     }
@@ -62,15 +70,15 @@ public class CreateOrder {
         //Заполнение текстовых полей
         orderPageScooter.setCustomerFirstName(checkName);
         orderPageScooter.setCustomerLastName(checkLastName);
-        orderPageScooter.setCustomerAddress("Москва");
-        orderPageScooter.setCustomerPhone("+79018038959");
+        orderPageScooter.setCustomerAddress(checkAddress);
+        orderPageScooter.setCustomerPhone(checkPhone);
         //Выбор станции метро
         orderPageScooter.chooseRandomMetroStation();
 
 
         //Переходим на 2 страницу создания заказа
         orderPageScooter.clickOnNextButton();
-        orderPageScooter.waitVisibility(By.xpath(".//div[@class='Order_Header__BZXOb']"));
+        orderPageScooter.waitVisibility(orderPageScooter.getOrderPageHeader());
 
         //Заполнение поля "Когда привезти самокат"
         orderPageScooter.chooseRandomDate();
@@ -83,25 +91,23 @@ public class CreateOrder {
 
         //Заполнение поля "Комментарий для курьера"
         orderPageScooter.clickOnComment();
-        orderPageScooter.setComment("Как можно быстрее");
+        orderPageScooter.setComment(checkComment);
 
         //Подтверждение заказа
         orderPageScooter.clickOnFinishOrderButton();
         orderPageScooter.clickOnYesButton();
 
         //Проверяем, появился ли элемент, который содержит номер заказа
-        WebElement actual = driver.findElement(By.xpath(".//div[@class='Order_Text__2broi']"));
+        WebElement actual = orderPageScooter.getOrderNumber();
         assertTrue("Произошла ошибка при оформлении заказа", actual.isDisplayed());
     }
 
     @Test
     public void checkCreateOrderWithMiddleButton() {
         HomePageScooter homePageScooter = new HomePageScooter(driver);
-        //Принимаем куки, чтобы они нам не перекрывали контент и переходим на страницу заказа
-        homePageScooter.applyCookie();
 
         //Скроллим до кнопки "Заказать"
-        homePageScooter.scrollToElement(driver.findElement(homePageScooter.getMiddleOrderButton()));
+        homePageScooter.scrollToElement(homePageScooter.getMiddleOrderButton());
         homePageScooter.clickOnMiddleOrderButton();
 
         OrderPageScooter orderPageScooter = new OrderPageScooter(driver);
@@ -111,15 +117,15 @@ public class CreateOrder {
         //Заполнение текстовых полей
         orderPageScooter.setCustomerFirstName(checkName);
         orderPageScooter.setCustomerLastName(checkLastName);
-        orderPageScooter.setCustomerAddress("Москва");
-        orderPageScooter.setCustomerPhone("+79018038959");
+        orderPageScooter.setCustomerAddress(checkAddress);
+        orderPageScooter.setCustomerPhone(checkPhone);
 
         //Выбор станции метро
         orderPageScooter.chooseRandomMetroStation();
 
         //Переходим на 2 страницу создания заказа
         orderPageScooter.clickOnNextButton();
-        orderPageScooter.waitVisibility(By.xpath(".//div[@class='Order_Header__BZXOb']"));
+        orderPageScooter.waitVisibility(orderPageScooter.getOrderPageHeader());
 
         //Заполнение поля "Когда привезти самокат"
         orderPageScooter.chooseRandomDate();
@@ -132,14 +138,14 @@ public class CreateOrder {
 
         //Заполнение поля "Комментарий для курьера"
         orderPageScooter.clickOnComment();
-        orderPageScooter.setComment("Как можно быстрее");
+        orderPageScooter.setComment(checkComment);
 
         //Подтверждение заказа
         orderPageScooter.clickOnFinishOrderButton();
         orderPageScooter.clickOnYesButton();
 
         //Проверяем, появился ли элемент, который содержит номер заказа
-        WebElement actual = driver.findElement(By.xpath(".//div[@class='Order_Text__2broi']"));
+        WebElement actual = orderPageScooter.getOrderNumber();
         assertTrue("Произошла ошибка при оформлении заказа", actual.isDisplayed());
     }
 

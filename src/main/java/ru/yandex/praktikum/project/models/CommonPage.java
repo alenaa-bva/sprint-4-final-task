@@ -19,14 +19,14 @@ public abstract class CommonPage {
 
     //Принять куки
     public void applyCookie(){
-        waitVisibility(applyCookie);
-        driver.findElement(applyCookie).click();
+        waitVisibility(getApplyCookie());
+        getApplyCookie().click();
     }
 
     //ожидание появления элемента в поле зрения
-    public void waitVisibility(By element){
-        new WebDriverWait(driver, 5)
-                .until(ExpectedConditions.visibilityOfElementLocated(element));
+    public void waitVisibility(WebElement element){
+        new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.visibilityOf(element));
     }
 
     //Скролл до элемента
@@ -40,8 +40,7 @@ public abstract class CommonPage {
         return allElements.get(new Random().nextInt(allElements.size())); //вернули раномный элемент из списка элементов
     }
 
-    //Геттеры
-    public By getApplyCookie() {
-        return applyCookie;
+    public WebElement getApplyCookie(){
+        return driver.findElement(By.className("App_CookieButton__3cvqF"));
     }
 }
